@@ -5,7 +5,7 @@ listobs(vis="moon_uhf.ms")
 # J1331+3030 - polarization
 # J1939-6342 - primary
 # J1733-1304 - phase calibrator 
-# Frequency range - 22 Jun 2021 17h - 21:23h
+# Duration - 22 Jun 2021 17h - 21:23h
 
 # lets have a look at the raw calibrator data
 plotms(vis='moon_uhf_calibrators.ms', xaxis='phase', yaxis='amplitude', xdatacolumn='data', ydatacolumn='data', correlation='XX,YY', coloraxis='corr', uvrange=">1m", avgtime='300', field='J1939-6342')
