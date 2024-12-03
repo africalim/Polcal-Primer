@@ -8,7 +8,7 @@ as a Stimela v2 recipe up to the reader as an exercise.
 
 We used CASA 5.6 throughout, but theoretically this recipe should execute in 4.7 and above -- no guarrantees are made for this though!
 
-The dataset is a 100MHz UHF dataset only containing the core antennas for the MeerKAT array to conserve space. This can be found in the [data](github.com/africalim/Polcal-Primer/data) subfolder.
+The dataset is a 100MHz UHF dataset only containing the core antennas for the MeerKAT array to conserve space. This can be found in the [data](https://github.com/africalim/Polcal-Primer/data) subfolder.
 
 Data fair use notice
 ---------------------
