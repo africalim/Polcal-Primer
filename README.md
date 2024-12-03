@@ -19,7 +19,7 @@ For linear feeds the calibration, mainly, removes the elliptical response induce
 ![IQUV Moon](https://raw.githubusercontent.com/africalim/Polcal-Primer/master/resultsIQUV.png)
 
 *The calibrated Moon at 858 MHz. Top image shows I Q U V stokes decomposition of the polarized Moon with +Q pointing north and -Q pointing east. The thermal emission from the limb is near-perfectly polarized by refraction. One of the primary effects is to calibrate the impedance which
-makes the Stokes V response to the moon noiselike. This is shown in the bottom right panel. Save for a relatively quiescent ionosphere this data is corrected for phase and amplitude gains, bandpass, leakages, crosshand phase and (geometric) parallactic angle rotation of the vectors.*
+makes the Stokes V response to the moon noiselike. Here Q, U and V are locked to the same minima and maxima. This is shown in the bottom right panel. Save for a relatively quiescent ionosphere this data is corrected for phase and amplitude gains, bandpass, leakages, crosshand phase and (geometric) parallactic angle rotation of the vectors.*
 
 ![Lunar polarization vectors](https://raw.githubusercontent.com/africalim/Polcal-Primer/master/final_pol_vectors.png)
 
