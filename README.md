@@ -25,6 +25,9 @@ makes the Stokes V response to the moon noiselike. This is shown in the bottom r
 
 *We overplot the polarization angle over total linear polarization (shown in colour). Thermal radio light is near perfectly radially polarized at the limb of the Moon by refraction through the dielectric surface regolith by Snell's Law in which the radial component dominates over the azimuthal component, giving rise to increasingly polarized light (up to 30+%) at the limb of the Moon.*
 
+Lastly we show a fit for the Earth's ionospheric RM (mainly from the F layer) using the orientation of these vectors (from wide-bandwidth data) for Moon in purple. This is compared to direct measurements using GNSS stations surrounding the MeerKAT site located on the [TrigNET](https://ngi.dalrrd.gov.za/index.php/what-we-do/geodetic-and-control-survey-services/37-trignet-continuously-operating-gnss-network) network, as well as various models derived by various global space science centres using International GNSS Service stations around the globe. For this data the ionosphere was relatively quiescent -- this is NOT always the case: strong diurnal effects can be present day to night!
+
+![IGS differential GNSS TEC comparison](https://raw.githubusercontent.com/africalim/Polcal-Primer/master/moon_database_comparison_UHF.png)
 
 Data fair use notice
 ---------------------
