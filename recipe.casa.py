@@ -93,8 +93,7 @@ applycal(vis='moon_uhf.ms', field='Moon', gaintable=['bp.K','sec.Gp','bp.Ga','bp
 # let's make a plot of amplitude vs uvdist. What the heck are we seeing? Challenge: work out the angular size of the Moon's disk from this?
 plotms(vis='moon_uhf.ms', xaxis='uvdist', yaxis='amplitude', xdatacolumn='corrected', ydatacolumn='corrected', correlation='XX,YY', coloraxis='corr', uvrange=">1m", avgtime='9999999999', avgchannel='99999999999', avgscan=True,  field='Moon', plotrange=[0,300,0,200])
 # let's make an image in IQUV to check that the handedness is currently reversed or not - for L-band it shouldn't. Polarization angle should increase north (+decl towards NCP) with propagation towards the observer. At this point there are still effects to remove -- notably HV phase and parallactic angle, plus the rotation from the ionosphere on Q and U!
-clean(vis='moon_uhf.ms', field='Moon', imagename="Moon.noHVphase", imsize=[512], cell=["5arcsec"], stokes="IQUV", weighti
-      ...: ng='briggs', robust=0.0, facets=3, niter=0)
+clean(vis='moon_uhf.ms', field='Moon', imagename="Moon.noHVphase", imsize=[512], cell=["5arcsec"], stokes="IQUV", weighting='briggs', robust=0.0, facets=3, niter=0)
 # note tclean seems to have a bug doing IQUV combined stokes under casa 5.6. We will use clean
 exportfits(imagename='Moon.noHVphase.image', fitsimage='Moon.noHVphase.image.fits') # dirty, haven't done any cleaning
 # download and view with your favorite viewer
