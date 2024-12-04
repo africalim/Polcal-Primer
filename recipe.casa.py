@@ -7,7 +7,7 @@ listobs(vis="moon_uhf.ms")
 # J1733-1304 - phase calibrator 
 # Duration - 22 Jun 2021 17h - 21:23h
 
-# lets have a look at the raw calibrator data
+# let's have a look at the raw calibrator data
 plotms(vis='moon_uhf_calibrators.ms', xaxis='phase', yaxis='amplitude', xdatacolumn='data', ydatacolumn='data', correlation='XX,YY', coloraxis='corr', uvrange=">1m", avgtime='300', field='J1939-6342')
 
 # what are we expecting to see?
@@ -69,7 +69,7 @@ applycal(vis='moon_uhf_calibrators.ms', field='J1939-6342', gaintable=['bp.K','b
 plotms(vis='moon_uhf_calibrators.ms', xaxis='frequency', yaxis='amplitude', xdatacolumn='corrected', ydatacolumn='corrected', correlation='XY,YX', coloraxis='corr', uvrange=">1m", avgtime='99999999999', avgscan=True,  field='J1939-6342')
 # I->U leakages should have gone down a few fold in your plots, try flipping between applying with and without Df solutions and reloading the plot if you want to double check!
 # IMPORTANT: Applying leakages does not mean that the polarization response of the system is fixed. The vast majority of the error (by an order of magnitude is calibrating the differential (ambiguous) impedance phase between the X and Y hands which turns a linearly polarized signal into an eliptical one on our system. This HV phase calibration will be done later and must be done on a linearly polarized source (ie. emitting coherently on both X and Y feeds)
-# now lets refine the system phase on our secondary source. We are going to bootstrap the phase and do some plotting to make sure the source is not resolved etc. but in the final solution we are NOT transferring the phase from the bandpass calibrator, which is very far away from the secondary and target (Moon)
+# now let's refine the system phase on our secondary source. We are going to bootstrap the phase and do some plotting to make sure the source is not resolved etc. but in the final solution we are NOT transferring the phase from the bandpass calibrator, which is very far away from the secondary and target (Moon)
 #
 # bootstrap the secondary and make some plots!
 applycal(vis='moon_uhf_calibrators.ms', field='J1733-1304', gaintable=['bp.K','bp.Gp','bp.Ga','bp.B','bp.Df'])
@@ -88,17 +88,17 @@ plotms(vis='sec.Gp', xaxis='time', yaxis='phase', coloraxis='corr', iteraxis='an
 # run applycal again and check the phase v amp now with the command above
 applycal(vis='moon_uhf_calibrators.ms', field='J1733-1304', gaintable=['bp.K','sec.Gp','bp.Ga','bp.B','sec.T','bp.Df'])
 
-# lets apply these phase refined solutions and frequency-dependent amplitude solutions from our primary onto our target, the Moon and see what things look like!
+# let's apply these phase refined solutions and frequency-dependent amplitude solutions from our primary onto our target, the Moon and see what things look like!
 applycal(vis='moon_uhf.ms', field='Moon', gaintable=['bp.K','sec.Gp','bp.Ga','bp.B','sec.T','bp.Df'])
 # let's make a plot of amplitude vs uvdist. What the heck are we seeing? Challenge: work out the angular size of the Moon's disk from this?
 plotms(vis='moon_uhf.ms', xaxis='uvdist', yaxis='amplitude', xdatacolumn='corrected', ydatacolumn='corrected', correlation='XX,YY', coloraxis='corr', uvrange=">1m", avgtime='9999999999', avgchannel='99999999999', avgscan=True,  field='Moon', plotrange=[0,300,0,200])
-# lets make an image in IQUV to check that the handedness is currently reversed or not - for L-band it shouldn't. Polarization angle should increase north (+decl towards NCP) with propagation towards the observer. At this point there are still effects to remove -- notably HV phase and parallactic angle, plus the rotation from the ionosphere on Q and U!
+# let's make an image in IQUV to check that the handedness is currently reversed or not - for L-band it shouldn't. Polarization angle should increase north (+decl towards NCP) with propagation towards the observer. At this point there are still effects to remove -- notably HV phase and parallactic angle, plus the rotation from the ionosphere on Q and U!
 clean(vis='moon_uhf.ms', field='Moon', imagename="Moon.noHVphase", imsize=[512], cell=["5arcsec"], stokes="IQUV", weighti
       ...: ng='briggs', robust=0.0, facets=3, niter=0)
 # note tclean seems to have a bug doing IQUV combined stokes under casa 5.6. We will use clean
 exportfits(imagename='Moon.noHVphase.image', fitsimage='Moon.noHVphase.image.fits') # dirty, haven't done any cleaning
 # download and view with your favorite viewer
-# there is still quite a bit of V stokes remaining which means our instrument is turning the plane polarized signal at the limb into eliptically polarized emission. This is the first order issue that must be removed. However it looks like our vectors are at least going North through East modulo the rotation of the ionosphere and parang. Lets rerun the above steps now that we are confident our phasing in the raw data is going the right way around on the reference antenna (note: IT DOES NOT on the S-band systems in particular!)
+# there is still quite a bit of V stokes remaining which means our instrument is turning the plane polarized signal at the limb into eliptically polarized emission. This is the first order issue that must be removed. However it looks like our vectors are at least going North through East modulo the rotation of the ionosphere and parang. Let's rerun the above steps now that we are confident our phasing in the raw data is going the right way around on the reference antenna (note: IT DOES NOT on the S-band systems in particular!)
 
 applycal(vis='moon_uhf.ms', field='Moon', gaintable=['bp.K','sec.Gp','bp.Ga','bp.B','sec.T','bp.Df'], parang=True) 
 clean(vis='moon_uhf.ms', field='Moon', imagename="Moon.noHVphase.parang", imsize=[512], cell=["5arcsec"], stokes="IQUV", weighting='briggs', robust=0.0, facets=3, niter=0)
@@ -116,21 +116,21 @@ exportfits(imagename='Moon.noHVphase.parang.image', fitsimage='Moon.noHVphase.pa
 # HV phase!! The MeerKAT OPT will help you plan
 #
 applycal(vis='moon_uhf_calibrators.ms', field='J1331+3030', gaintable=['bp.K','bp.Gp','bp.Ga','bp.B','sec.T','bp.Df'])
-# lets check the amp x phase and also look at the time variability due to (mainly parallactic angle and ionosphere) on the crosshand
+# let's check the amp x phase and also look at the time variability due to (mainly parallactic angle and ionosphere) on the crosshand
 # correlations XY and YX - ideally they should be precisely the same and not time variable AFTER we apply HV phase and parallactic angle (modulo ionospheric RM)
 # Obviously we got our work cut out for us here a bit!
 plotms(vis='moon_uhf_calibrators.ms', xaxis='phase', yaxis='amplitude', xdatacolumn='corrected', ydatacolumn='corrected', correlation='XX,YY', coloraxis='corr', uvrange=">1m", avgtime='300',  field='J1331+3030')
 plotms(vis='moon_uhf_calibrators.ms', xaxis='time', yaxis='amplitude', xdatacolumn='corrected', ydatacolumn='corrected', correlation='XY,YX', coloraxis='corr', uvrange=">1m", avgchannel='9999999',  field='J1331+3030')
 # there is not that much power on the first scan so we will combine both scans to get sufficient HV power to solve for HV phases
 # after refining the diagonal X and Y phase terms first.
-# lets' refine the phase -- obviously this source is quite polarized (10% at L-band dropping to <2% at the bottom of UHF at 600MHz).
+# let's refine the phase -- obviously this source is quite polarized (10% at L-band dropping to <2% at the bottom of UHF at 600MHz).
 # MAKE SURE YOU CALIBRATE ONLY THE PHASE - otherwise you will absorb the source's unmodelled polarization into your transfer 
 # solutions and bias your entire target field as a result!
 gaincal(vis='moon_uhf_calibrators.ms', caltable='pol.Gp', field='J1331+3030', gaintype='G', calmode='p', solint='inf', combine='',refant='m002', gaintable=['bp.K', 'bp.Ga', 'bp.B', 'bp.Df'])
 applycal(vis='moon_uhf_calibrators.ms', field='J1331+3030', gaintable=['bp.K','pol.Gp','bp.Ga','bp.B','sec.T','bp.Df'])
 # verify the phase spread improves as en exercise to the reader!
 # We can further refine this phase through self calibration (and I leave this as an exercise to the reader!) which is especially
-# important on wideband data, but let's continue solving for the HV phase here. Before we do lets closely look at the crosshands
+# important on wideband data, but let's continue solving for the HV phase here. Before we do let's closely look at the crosshands
 # again. 3C286 is a quasar with a polarized jet. Generally speaking these strong quarsars are not circularly polarized
 # (notably things like pulsars and solar flares can be highly circularly polarized -- BEWARE!)
 # we therefore expect the crosshands to be real-value dominated for this strong pointlike object at phase centre. The imaginary
@@ -151,6 +151,7 @@ plotms(vis='moon_uhf_calibrators.ms', xaxis='time', yaxis='amplitude', xdatacolu
 # all that is left is transfer of the full chain onto the Moon and verifying that the V goes down on the Lunar maps!
 applycal(vis='moon_uhf.ms', field='Moon', gaintable=['bp.K','sec.Gp','bp.Ga','bp.B','sec.T','bp.Df','pol.Xf'], parang=True)
 clean(vis='moon_uhf.ms', field='Moon', imagename="Moon.HVphase.parang", imsize=[512], cell=["5arcsec"], stokes="IQUV", weighting='briggs', robust=0.0, facets=3, niter=0)
+exportfits(imagename='Moon.HVphase.parang.image', fitsimage='Moon.HVphase.parang.image.fits')
 # depending on the impedence on the refant this ellipticity can be more than half the signal of U so it is one of the more important terms to calibrate!
 
 # Additional terms to calibrate is ionospheric spatio-temporal variability (must be done per target, not inferring variability on 3C286, which is low on the horizon). 
