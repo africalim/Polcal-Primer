@@ -8,6 +8,9 @@ as a Stimela v2 recipe up to the reader as an exercise.
 
 We used CASA 5.6 throughout, but theoretically this recipe should execute in 4.7 and above -- no guarrantees are made for this though!
 
+Instructions for bringing up a node/pod on AWS using Kubernetes can be found [here](https://tinyurl.com/mipolarizedcasa). You may need WSL2 with graphics (WSLG) if you are running Microsoft Windows.
+See [Microsoft support](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps) for more details.
+
 About this data
 --------------------
 The dataset is a 100MHz UHF dataset only containing the core antennas for the MeerKAT array to conserve space. We have substantially averaged down the raw data to reflect the lack of long spacings in this dataset. You will have the opportunity to reduce a large wide-band L-band dataset performing the calibration steps we will discuss here through Kubernetes. This can be found in the [data](https://github.com/africalim/Polcal-Primer/tree/master/data) subfolder.
