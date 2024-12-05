@@ -141,7 +141,7 @@ plotms(vis='moon_uhf_calibrators.ms', xaxis='imag', yaxis='real', xdatacolumn='c
 # concerns but this frequency dependent slope is stable at few ps level so we will just absorb it into crosshand phase (Xf)
 # solutions here
 
-polcal(vis='moon_uhf_calibrators.ms', field='J1331+3030', caltable='pol.Xf', refant='m002', gaintable=['bp.K','pol.Gp','bp.Ga','bp.B'], combine='scan', poltype='Xf', solint='inf,20MHz')
+polcal(vis='moon_uhf_calibrators.ms', field='J1331+3030', caltable='pol.Xf', refant='m002', gaintable=['bp.K','pol.Gp','bp.Ga','bp.B','bp.Df'], combine='scan', poltype='Xf', solint='inf,20MHz')
 plotms(vis='pol.Xf', xaxis='freq', yaxis='phase')
 # apply and inspect the net result, time variability should be mostly gone (modulo ionosphere) and real dominated as discussed
 applycal(vis='moon_uhf_calibrators.ms', field='J1331+3030', gaintable=['bp.K','pol.Gp','bp.Ga','bp.B','sec.T','bp.Df','pol.Xf'], parang=True)
